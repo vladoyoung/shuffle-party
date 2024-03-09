@@ -1,7 +1,7 @@
 <script context="module" lang="ts" type="module">
     import { getProviderToken } from '../stores/main'
     import { toast } from 'svelte-sonner'
-    const songsToGet = 5
+    const songsToGet = 25
     export async function fetchTracks(signal: AbortSignal) {
         const tracks = []
         const providerToken = getProviderToken()
