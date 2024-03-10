@@ -80,59 +80,67 @@
                     } else {
                         throw new Error('No loaded tracks to mix.')
                     }
-                    await addPlaylistCoverImage(
-                        playlistId,
-                        session.provider_token
-                    )
+                    // Delay because Spotify API doesn't recognise the playlist immediately
+                    if (playlistId) {
+                        setTimeout(async () => {
+                            await addPlaylistCoverImage(
+                                playlistId!,
+                                session.provider_token
+                            )
+                        }, 1000)
+                    }
                 }
             } else {
                 // Not creating a new playlist, user already has a Shuffle Party playlist
                 playlistId = hasExistingShufflePartyPlaylist.id
-            }
-            if (playlistId) {
-                if (fetchedTracks.length > 0) {
-                    const fetchedTracksUris = fetchedTracks.map(
-                        (track) => track.uri
-                    )
-                    const playlistTracks =
-                        await getAllPlaylistTracks(playlistId)
-                    const playlistSongsUris = playlistTracks.map(
-                        (track) => track.uri
-                    )
-                    if (
-                        arraysAreIdentical(
-                            arrayMixer(
-                                fetchedTracksUris,
-                                selectedUser.shared_songs
-                            ),
-                            playlistSongsUris
+                if (playlistId) {
+                    if (fetchedTracks.length > 0) {
+                        const fetchedTracksUris = fetchedTracks.map(
+                            (track) => track.uri
                         )
-                    ) {
-                        toast.error(
-                            'The songs you are trying to mix are the same as the current ones!'
+                        const playlistTracks =
+                            await getAllPlaylistTracks(playlistId)
+                        const playlistSongsUris = playlistTracks.map(
+                            (track) => track.uri
                         )
-                        return
-                    } else {
-                        await removeTracksFromPlaylist(
-                            playlistId,
-                            playlistTracks
-                        )
-                        if (selectedUser.shared_songs.length > 0) {
-                            const mixedPlaylist = arrayMixer(
-                                fetchedTracksUris,
-                                selectedUser.shared_songs
+                        if (
+                            arraysAreIdentical(
+                                arrayMixer(
+                                    fetchedTracksUris,
+                                    selectedUser.shared_songs
+                                ),
+                                playlistSongsUris
                             )
-                            await addItemsToPlaylist(playlistId, mixedPlaylist)
+                        ) {
+                            toast.error(
+                                'The songs you are trying to mix are the same as the current ones!'
+                            )
+                            return
                         } else {
-                            await addItemsToPlaylist(
+                            await removeTracksFromPlaylist(
                                 playlistId,
-                                fetchedTracksUris
+                                playlistTracks
                             )
+                            if (selectedUser.shared_songs.length > 0) {
+                                const mixedPlaylist = arrayMixer(
+                                    fetchedTracksUris,
+                                    selectedUser.shared_songs
+                                )
+                                await addItemsToPlaylist(
+                                    playlistId,
+                                    mixedPlaylist
+                                )
+                            } else {
+                                await addItemsToPlaylist(
+                                    playlistId,
+                                    fetchedTracksUris
+                                )
+                            }
+                            await changePlaylistDetails(playlistId)
                         }
-                        await changePlaylistDetails(playlistId)
+                    } else {
+                        throw new Error('No loaded tracks to mix.')
                     }
-                } else {
-                    throw new Error('No loaded tracks to mix.')
                 }
             }
             mixingCompleted = true

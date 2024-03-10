@@ -1,5 +1,5 @@
 import type { Session } from '@supabase/supabase-js'
-import ShufflePartyLogo from '../assets/shuffleparty_logo_512.png'
+import ShufflePartyLogo from '../assets/shuffleparty_logo_512.jpg'
 
 const addPlaylistCoverImage = async (
     playlistId: string,

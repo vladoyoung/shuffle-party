@@ -38,6 +38,11 @@ For the "update shared songs" functionality, the same 25 songs fetch is used, bu
 
 Before creating a new "Shuffle Party" playlist, the app will check if the user already has a playlist with that name in their library. If they do, the app will only update the songs and description of that playlist instead of deleting the whole playlist and creating a new one. The description update includes a date and timestamp of the last update to the playlist.
 
+#### Installation:
+If you need to run this locally, you will need to set up your Supabase environemnt variables first, alongside configuring your own Spotify developer account. You can follow [this Supabase guide](https://supabase.com/docs/guides/auth/social-login/auth-spotify) for more information. You will also need to set up your Supabase authentication settings and profile tables for Postgres. I will not include these in the installation guide as it's fairly easy to just follow the code in the repo for reference.
+
+After than, simply do `npm install` and then `npm run dev` to run in dev mode. `npm run build` for production mode and `npm run preview` if you need to preview your production mode build.
+
 #### Potential improvements:
 - [ ] See if there's a way to remove the need for the "Update shared songs" step. This might be tricky with authorization and Spotify access tokens.
 - [ ] Wait and see if Spotify will implement the API ability to add songs through collaborative approaches so the app can display which user added which songs.
