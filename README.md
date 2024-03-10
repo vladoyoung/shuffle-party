@@ -1,5 +1,5 @@
 # Shuffle Party
-#### Video Demo:  Soon!
+#### Video Demo: https://youtu.be/-q5cBolxcKU
 #### Description:
 This is a frontend application created for a final project submission for the Harvard CS50x course. Howerver, it's also a practical project I've been having in mind for some time.
 
