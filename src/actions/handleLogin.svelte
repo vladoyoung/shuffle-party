@@ -7,6 +7,8 @@
                 provider: 'spotify',
                 options: {
                     scopes: 'user-library-read,playlist-modify-public,playlist-modify-private,playlist-read-private,playlist-read-collaborative,ugc-image-upload',
+                    // For local use
+                    // redirectTo: 'http://localhost:5173/',
                 },
             })
             if (error) throw error

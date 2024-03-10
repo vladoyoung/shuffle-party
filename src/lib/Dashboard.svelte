@@ -14,8 +14,7 @@
     import { Button } from '$lib/components/ui/button'
     import * as Avatar from '$lib/components/ui/avatar'
     import * as Card from '$lib/components/ui/card'
-    import Loader2 from 'lucide-svelte/icons/loader-2'
-    import CheckCircle2 from 'lucide-svelte/icons/check-circle-2'
+    import { Loader2, CheckCircle2 } from 'lucide-svelte'
     import Account from './Account.svelte'
     import { Skeleton } from '$lib/components/ui/skeleton'
     import { toast } from 'svelte-sonner'
@@ -181,7 +180,7 @@
         <h2 class="mx-auto max-w-max text-xl font-semibold sm:text-2xl">
             🎉 &nbsp; Select a user to party with...
         </h2>
-        <div class="flex flex-row items-center justify-center gap-4">
+        <div class="flex flex-row flex-wrap items-center justify-center gap-4">
             {#if users.length > 0}
                 {#each users as user}
                     <button on:click={() => userSelectClick(user)}>
@@ -266,7 +265,7 @@
                     {#if loading}
                         <Loader2 class="mr-2 h-4 w-4 animate-spin" />
                     {/if}
-                    {loading ? 'Updating...' : 'Update shared songs'}
+                    {loading ? 'Updating...' : 'Update your shared songs'}
                 </Button>
                 {#if loading}
                     <Button
@@ -282,8 +281,12 @@
     {:else}
         <div
             class="flex flex-col items-center justify-center gap-2 text-center">
-            <h2 class="lg:text-8xl md:text-7xl sm:text-5xl text-4xl font-bold">Mix completed!</h2>
-            <h3 class="lg:text-4xl md:text-3xl sm:text-2xl text-xl">Lets get this party started!</h3>
+            <h2 class="text-4xl font-bold sm:text-5xl md:text-7xl lg:text-8xl">
+                Mix completed!
+            </h2>
+            <h3 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+                Lets get this party started!
+            </h3>
             <Button
                 href={`https://open.spotify.com/playlist/${playlistId}?go=1&amp`}
                 target="_blank"
