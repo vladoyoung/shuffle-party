@@ -59,9 +59,7 @@
             const signal = abortController.signal
             fetchedTracks = await fetchTracks(signal)
             const hasExistingShufflePartyPlaylist =
-                await checkIfUserHasShufflePartyPlaylist(
-                    session.user.user_metadata.provider_id
-                )
+                await checkIfUserHasShufflePartyPlaylist()
             if (!hasExistingShufflePartyPlaylist) {
                 const newPlaylistInfo = await createPlaylist()
                 playlistId = newPlaylistInfo.id

@@ -1,14 +1,11 @@
 import { getProviderToken } from '../stores/main'
 
-async function checkIfUserHasShufflePartyPlaylist(
-    userSpotifyId: string,
-    signal?: AbortSignal
-) {
+async function checkIfUserHasShufflePartyPlaylist(signal?: AbortSignal) {
     const providerToken = getProviderToken()
     try {
         let foundPlaylist = false
         let playlists: SpotifyApi.PlaylistBaseObject[] = []
-        let nextUrl = `https://api.spotify.com/v1/users/${userSpotifyId}/playlists?limit=50`
+        let nextUrl = `https://api.spotify.com/v1/me/playlists?limit=50`
 
         while (nextUrl && !foundPlaylist) {
             const response = await fetch(nextUrl, {

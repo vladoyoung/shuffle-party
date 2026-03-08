@@ -8,7 +8,7 @@ export async function removeTracksFromPlaylist(
     const providerToken = getProviderToken()
     try {
         const removeResponse = await fetch(
-            `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+            `https://api.spotify.com/v1/playlists/${playlistId}/items`,
             {
                 method: 'DELETE',
                 headers: {
@@ -16,7 +16,7 @@ export async function removeTracksFromPlaylist(
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    tracks: tracksURIs.map((track) => ({ uri: track.uri })),
+                    items: tracksURIs.map((track) => ({ uri: track.uri })),
                 }),
                 signal: signal,
             }

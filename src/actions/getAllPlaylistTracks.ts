@@ -7,7 +7,7 @@ export async function getAllPlaylistTracks(
     const providerToken = getProviderToken()
     try {
         let allTracks: SpotifyApi.TrackObjectFull[] = []
-        let nextUrl = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`
+        let nextUrl = `https://api.spotify.com/v1/playlists/${playlistId}/items`
 
         while (nextUrl) {
             const response = await fetch(nextUrl, {
@@ -20,7 +20,7 @@ export async function getAllPlaylistTracks(
 
             // Extracting track information from the response
             const tracks = data.items.map(
-                (item: SpotifyApi.PlaylistTrackObject) => item.track
+                (item: { item: SpotifyApi.TrackObjectFull }) => item.item
             )
             allTracks = allTracks.concat(tracks)
 
